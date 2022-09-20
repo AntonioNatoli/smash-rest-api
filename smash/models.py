@@ -16,6 +16,10 @@ class Transaction(models.Model):
         auto_now_add=True
     )
 
+    def username(self):
+        return self.user.username
+
+
 
 
 

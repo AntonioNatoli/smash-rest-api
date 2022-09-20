@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-^))7m(hb71ts87_)rrt8721#w@e*syrag6+9un0*ky3=%7_!((
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '.neumann.abinsula.com '
+    '.neumann.abinsula.com ',
+    'localhost',
+    '127.0.0.1'
 ]
 
 
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
+    'corsheaders',
     'smash'
 ]
 
@@ -52,7 +55,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'smash.urls'
 
@@ -81,7 +87,7 @@ WSGI_APPLICATION = 'smash.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -108,6 +114,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
             'smash.authentication.CustomTokenAuthentication',
         ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 50,
 }
 
 
