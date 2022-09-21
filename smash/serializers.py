@@ -4,9 +4,8 @@ from django.db.models import Sum
 from django.db.models.functions import Coalesce
 from rest_framework import serializers
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
 from smash.api_errors import UserNotExist, PasswordWrong
-from smash.models import Transaction
+from smash.models import Transaction, User
 
 
 class LoginSerializer(serializers.Serializer):
@@ -63,6 +62,5 @@ class UserSerializer(serializers.ModelSerializer):
     def get_total_credits_current_month(self, obj):
         transaction_list = Transaction.objects.filter(user=obj, purchase_date__month=datetime.datetime.now().month)
         return round(transaction_list.aggregate(total_credits=Coalesce(Sum('credits'), 0.0))['total_credits'] ,2)
-
 
 

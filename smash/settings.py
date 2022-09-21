@@ -118,6 +118,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 50,
 }
 
+AUTH_USER_MODEL = 'smash.User'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
